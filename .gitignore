@@ -15,3 +15,7 @@ target/
 ### OS ###
 .DS_Store
 Thumbs.db
+
+### Local-only docs ###
+SUSTENTACION.md
+PRESENTATION.md
