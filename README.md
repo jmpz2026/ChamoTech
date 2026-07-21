@@ -2,28 +2,6 @@
 
 Catalog and order management backend for the tech store **TechAndes**.
 
-## Running the project
-
-Requires **JDK 17+** and Maven.
-
-### Development (H2, default profile)
-
-```bash
-mvn spring-boot:run
-```
-
-- API: `http://localhost:8080`
-- Swagger UI: `http://localhost:8080/swagger-ui.html`
-- H2 console: `http://localhost:8080/h2-console` (JDBC URL `jdbc:h2:mem:chamotech`, user `sa`, no password)
-
-### Deployment (MySQL)
-
-```bash
-mvn spring-boot:run -Dspring-boot.run.profiles=prod
-```
-
-Environment variables (with defaults): `DB_URL`, `DB_USERNAME`, `DB_PASSWORD`, `JWT_SECRET`, `JWT_EXPIRATION_MS`.
-
 ## Endpoints
 
 Standard response: `{ success, message, data }`. Errors: `{ timestamp, status, message, path }`.
