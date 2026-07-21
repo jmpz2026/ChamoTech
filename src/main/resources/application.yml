@@ -3,11 +3,3 @@ spring:
     active: dev
   application:
     name: ChamoTech
-
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html
-
-jwt:
-  secret: ${JWT_SECRET:NDA4RDYzMzVFRkUwOTQ2NUM2MDQ5RDgxMzZFOTVFRTk4MTQ2MDA3RDhBOTA0N0I5NDdCRjgxMTFGQzY5NkY5Rg==}
-  expiration-ms: ${JWT_EXPIRATION_MS:3600000}

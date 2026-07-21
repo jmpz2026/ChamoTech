@@ -19,7 +19,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,10 +43,12 @@ public class ProductService {
         return ApiResponse.success(MessageConstants.PRODUCT_FOUND, ProductMapper.toResponseDTO(product));
     }
 
-    public ApiResponse<Page<ProductResponseDTO>> search(Long categoryId, BigDecimal priceMin, BigDecimal priceMax, String tag, Pageable pageable) {
-        Page<ProductResponseDTO> page = productRepository
-                .searchWithFilters(categoryId, priceMin, priceMax, tag, pageable)
-                .map(ProductMapper::toResponseDTO);
+    public ApiResponse<Page<ProductResponseDTO>> search(Long categoryId, Pageable pageable) {
+        Page<ProductEntity> result = (categoryId == null)
+                ? productRepository.findAll(pageable)
+                : productRepository.findByCategoryId(categoryId, pageable);
+
+        Page<ProductResponseDTO> page = result.map(ProductMapper::toResponseDTO);
 
         return ApiResponse.success(MessageConstants.PRODUCT_LIST, page);
     }

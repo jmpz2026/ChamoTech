@@ -1,9 +1,6 @@
 package com.chamo.chamotech.dto.product;
 
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -21,7 +18,7 @@ public class ProductRequestDTO {
     private BigDecimal price;
 
     @NotNull(message = "stock is required")
-    @PositiveOrZero(message = "stock cannot be negative")
+    @Positive(message = "stock cannot be negative")
     private Integer stock;
 
     @NotNull(message = "categoryId is required")

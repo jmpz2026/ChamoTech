@@ -5,63 +5,9 @@
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
-    { "key": "baseUrl", "value": "http://localhost:8080" },
-    { "key": "token", "value": "" }
+    { "key": "baseUrl", "value": "http://localhost:8080" }
   ],
   "item": [
-    {
-      "name": "Auth",
-      "item": [
-        {
-          "name": "Register",
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/auth/register",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "register"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Login",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "const body = pm.response.json();",
-                  "if (body.data && body.data.token) {",
-                  "    pm.collectionVariables.set('token', body.data.token);",
-                  "}"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/auth/login",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "login"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
     {
       "name": "Customers",
       "item": [
@@ -99,7 +45,6 @@
         {
           "name": "Create customer",
           "request": {
-            "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
@@ -117,7 +62,6 @@
         {
           "name": "Update customer",
           "request": {
-            "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
             "method": "PUT",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
@@ -135,7 +79,6 @@
         {
           "name": "Delete customer",
           "request": {
-            "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
             "method": "DELETE",
             "header": [],
             "url": {
@@ -180,7 +123,6 @@
         {
           "name": "Create category",
           "request": {
-            "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
@@ -198,7 +140,6 @@
         {
           "name": "Update category",
           "request": {
-            "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
             "method": "PUT",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
@@ -216,7 +157,6 @@
         {
           "name": "Delete category (409 if it has products)",
           "request": {
-            "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
             "method": "DELETE",
             "header": [],
             "url": {
@@ -261,7 +201,6 @@
         {
           "name": "Create tag",
           "request": {
-            "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
@@ -279,7 +218,6 @@
         {
           "name": "Update tag",
           "request": {
-            "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
             "method": "PUT",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
@@ -297,7 +235,6 @@
         {
           "name": "Delete tag",
           "request": {
-            "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
             "method": "DELETE",
             "header": [],
             "url": {
@@ -332,19 +269,16 @@
           "response": []
         },
         {
-          "name": "Search products with filters",
+          "name": "Search products by category",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/products/search?categoryId=1&priceMin=10&priceMax=200&tag=gamer",
+              "raw": "{{baseUrl}}/products/search?categoryId=1",
               "host": ["{{baseUrl}}"],
               "path": ["products", "search"],
               "query": [
-                { "key": "categoryId", "value": "1" },
-                { "key": "priceMin", "value": "10" },
-                { "key": "priceMax", "value": "200" },
-                { "key": "tag", "value": "gamer" }
+                { "key": "categoryId", "value": "1" }
               ]
             }
           },
@@ -366,7 +300,6 @@
         {
           "name": "Create product",
           "request": {
-            "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
@@ -384,7 +317,6 @@
         {
           "name": "Update product",
           "request": {
-            "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
             "method": "PUT",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
@@ -402,7 +334,6 @@
         {
           "name": "Delete product (409 if part of an order)",
           "request": {
-            "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
             "method": "DELETE",
             "header": [],
             "url": {
@@ -419,9 +350,8 @@
       "name": "Orders",
       "item": [
         {
-          "name": "List orders (admin)",
+          "name": "List orders",
           "request": {
-            "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
             "method": "GET",
             "header": [],
             "url": {
@@ -438,9 +368,8 @@
           "response": []
         },
         {
-          "name": "Get order by id (admin)",
+          "name": "Get order by id",
           "request": {
-            "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
             "method": "GET",
             "header": [],
             "url": {
@@ -454,7 +383,6 @@
         {
           "name": "Create order (full flow: stock check, freeze price, total)",
           "request": {
-            "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
@@ -472,7 +400,6 @@
         {
           "name": "Create order - insufficient stock (409)",
           "request": {
-            "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
