@@ -3,6 +3,8 @@ package com.chamo.chamotech.controller;
 import com.chamo.chamotech.dto.ApiResponse;
 import com.chamo.chamotech.dto.tag.TagRequestDTO;
 import com.chamo.chamotech.dto.tag.TagResponseDTO;
+import com.chamo.chamotech.enums.Role;
+import com.chamo.chamotech.security.RequiresRole;
 import com.chamo.chamotech.service.TagService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,16 +32,19 @@ public class TagController {
         return ResponseEntity.ok(tagService.getById(id));
     }
 
+    @RequiresRole(Role.ADMIN)
     @PostMapping
     public ResponseEntity<ApiResponse<TagResponseDTO>> create(@RequestBody @Valid TagRequestDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(tagService.create(request));
     }
 
+    @RequiresRole(Role.ADMIN)
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<TagResponseDTO>> update(@PathVariable Long id, @RequestBody @Valid TagRequestDTO request) {
         return ResponseEntity.ok(tagService.update(id, request));
     }
 
+    @RequiresRole(Role.ADMIN)
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         return ResponseEntity.ok(tagService.delete(id));

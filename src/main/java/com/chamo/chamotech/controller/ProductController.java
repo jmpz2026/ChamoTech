@@ -3,6 +3,8 @@ package com.chamo.chamotech.controller;
 import com.chamo.chamotech.dto.ApiResponse;
 import com.chamo.chamotech.dto.product.ProductRequestDTO;
 import com.chamo.chamotech.dto.product.ProductResponseDTO;
+import com.chamo.chamotech.enums.Role;
+import com.chamo.chamotech.security.RequiresRole;
 import com.chamo.chamotech.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -42,16 +44,19 @@ public class ProductController {
         return ResponseEntity.ok(productService.getById(id));
     }
 
+    @RequiresRole(Role.ADMIN)
     @PostMapping
     public ResponseEntity<ApiResponse<ProductResponseDTO>> create(@RequestBody @Valid ProductRequestDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.create(request));
     }
 
+    @RequiresRole(Role.ADMIN)
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<ProductResponseDTO>> update(@PathVariable Long id, @RequestBody @Valid ProductRequestDTO request) {
         return ResponseEntity.ok(productService.update(id, request));
     }
 
+    @RequiresRole(Role.ADMIN)
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         return ResponseEntity.ok(productService.delete(id));

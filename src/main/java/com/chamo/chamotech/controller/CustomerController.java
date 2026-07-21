@@ -3,6 +3,8 @@ package com.chamo.chamotech.controller;
 import com.chamo.chamotech.dto.ApiResponse;
 import com.chamo.chamotech.dto.customer.CustomerRequestDTO;
 import com.chamo.chamotech.dto.customer.CustomerResponseDTO;
+import com.chamo.chamotech.enums.Role;
+import com.chamo.chamotech.security.RequiresRole;
 import com.chamo.chamotech.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,16 +32,19 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.getById(id));
     }
 
+    @RequiresRole(Role.ADMIN)
     @PostMapping
     public ResponseEntity<ApiResponse<CustomerResponseDTO>> create(@RequestBody @Valid CustomerRequestDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(customerService.create(request));
     }
 
+    @RequiresRole(Role.ADMIN)
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<CustomerResponseDTO>> update(@PathVariable Long id, @RequestBody @Valid CustomerRequestDTO request) {
         return ResponseEntity.ok(customerService.update(id, request));
     }
 
+    @RequiresRole(Role.ADMIN)
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         return ResponseEntity.ok(customerService.delete(id));
